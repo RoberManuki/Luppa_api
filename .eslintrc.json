@@ -23,7 +23,8 @@
         "prettier"
     ],
     "rules": {
-      "no-console": "warn",
+      "no-console": "off",
+      "class-methods-use-this":"off",
       "prettier/prettier": "error",
       "import/extensions": [
         "error",

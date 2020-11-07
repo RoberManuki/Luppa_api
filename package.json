@@ -5,11 +5,16 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts"
   },
   "dependencies": {
     "date-fns": "^2.16.1",
     "express": "^4.17.1",
+    "pg": "^8.4.2",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.29",
     "uuid": "^8.3.1"
   },
   "devDependencies": {
