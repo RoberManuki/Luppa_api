@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 import authConfig from '../config/auth';
+import AppError from '../errors/AppError';
 
 interface TokenPayload {
   iat: number;
@@ -16,7 +17,7 @@ export default function ensureAuthenticated(
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new Error('Permission denied! Missing Json Web Token');
+    throw new AppError('Permission denied! Missing Json Web Token', 401);
   }
 
   const [, token] = authHeader.split(' ');
@@ -32,6 +33,6 @@ export default function ensureAuthenticated(
 
     return next();
   } catch (err) {
-    throw new Error('Permission denied! Invalid Json Web Token');
+    throw new AppError('Permission denied! Invalid Json Web Token', 401);
   }
 }

@@ -2,6 +2,7 @@ import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
+import AppError from '../errors/AppError';
 
 interface RequestDTO {
   provider_id: string;
@@ -21,7 +22,7 @@ class CreateAppointmentService {
     );
 
     if (findAppointmentSameDate) {
-      throw new Error('Duplicated appointment!');
+      throw new AppError('Duplicated appointment!');
     }
 
     const appointment = appointmentsRepository.create({
