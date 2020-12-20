@@ -30,6 +30,8 @@
       }],
       "class-methods-use-this":"off",
       "prettier/prettier": "error",
+      "no-useless-constructor": "off",
+      "typescipt-eslint/interface-name-prefix": ["error", { "prefixwithI": "always" }],
       "import/extensions": [
         "error",
         "ignorePackages",
