@@ -31,7 +31,17 @@
       "class-methods-use-this":"off",
       "prettier/prettier": "error",
       "no-useless-constructor": "off",
-      "typescipt-eslint/interface-name-prefix": ["error", { "prefixwithI": "always" }],
+      "@typescript-eslint/naming-convention": [
+        "error",
+        {
+          "selector": "interface",
+          "format": ["PascalCase"],
+          "custom": {
+            "regex": "^I[A-Z]",
+            "match": true
+          }
+        }
+      ],
       "import/extensions": [
         "error",
         "ignorePackages",
