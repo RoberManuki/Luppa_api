@@ -1,4 +1,4 @@
-// import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 
@@ -26,12 +26,63 @@ describe('AuthenticateUser', () => {
       password: '123456',
     });
 
-    const response = await authenticateUser.execute({
+    // const user = await fakeUsersRepository.create({
+    //   name: 'john doe',
+    //   email: 'john@email.com.br',
+    //   password: '123456',
+    // });
+
+    const authenticated = await authenticateUser.execute({
       email: 'john@email.com.br',
       password: '123456',
     });
 
-    expect(response).toHaveProperty('token');
-    expect(response.user).toEqual(user);
+    expect(authenticated).toHaveProperty('token');
+    expect(authenticated.user).toEqual(user);
+  });
+
+  it('should not be able to authenticate with a non existing user', async () => {
+    const fakeUsersRepository = new FakeUsersRepository();
+    const fakeHashProvider = new FakeHashProvider();
+
+    const authenticateUser = new AuthenticateUserService(
+      fakeUsersRepository,
+      fakeHashProvider,
+    );
+
+    expect(
+      authenticateUser.execute({
+        email: 'john@email.com.br',
+        password: '123456',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to authenticate with wrong password', async () => {
+    const fakeUsersRepository = new FakeUsersRepository();
+    const fakeHashProvider = new FakeHashProvider();
+
+    const authenticateUser = new AuthenticateUserService(
+      fakeUsersRepository,
+      fakeHashProvider,
+    );
+
+    const createUser = new CreateUserService(
+      fakeUsersRepository,
+      fakeHashProvider,
+    );
+
+    await createUser.execute({
+      name: 'john doe',
+      email: 'john@email.com.br',
+      password: '123456',
+    });
+
+    expect(
+      authenticateUser.execute({
+        email: 'john@email.com.br',
+        password: 'wrong-password',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
