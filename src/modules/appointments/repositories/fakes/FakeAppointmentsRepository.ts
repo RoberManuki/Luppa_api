@@ -5,7 +5,6 @@ import Appointment from '../../infra/typeorm/entities/Appointment';
 import IAppointmentsRepository from '../IAppointmentsRepository';
 import ICreateAppointmentDTO from '../../dtos/ICreateAppointmentDTO';
 
-
 class FakeAppointmentsRepository implements IAppointmentsRepository {
   private appointments: Appointment[] = [];
 
@@ -29,7 +28,6 @@ class FakeAppointmentsRepository implements IAppointmentsRepository {
 
     return appointment;
   }
-
 }
 
 export default FakeAppointmentsRepository;
