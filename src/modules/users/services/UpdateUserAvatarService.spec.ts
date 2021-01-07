@@ -20,7 +20,7 @@ describe('UpdateUserAvatar', () => {
     });
 
     await updateUserAvatar.execute({
-      avatarFilename: 'avatar.jgp',
+      avatarFilename: 'avatar.jpg',
       user_id: user.id,
     });
 
