@@ -4,10 +4,6 @@ import AppError from '@shared/errors/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IUserTokensRepository from '../repositories/IUserTokensRepository';
 
-interface IRequestDTO {
-  email: string;
-}
-
 @injectable()
 class SendForgotPasswordEmailService {
   constructor(
@@ -21,7 +17,7 @@ class SendForgotPasswordEmailService {
     private userTokensRepository: IUserTokensRepository,
   ) {}
 
-  public async execute({ email }: IRequestDTO): Promise<void> {
+  public async execute(email: string): Promise<void> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
@@ -31,6 +27,7 @@ class SendForgotPasswordEmailService {
     const { token } = await this.userTokensRepository.generate(user.id);
 
     await this.mailProvider.sendMail(email, `email recover body: ${token}`);
+    console.log(token);
   }
 }
 
