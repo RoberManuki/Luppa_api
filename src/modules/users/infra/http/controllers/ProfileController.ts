@@ -8,6 +8,8 @@ export default class ProfileController {
   public async show(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
 
+    console.log('comit template');
+
     const showProfile = container.resolve(ShowProfileService);
 
     const user = await showProfile.execute({ user_id });
