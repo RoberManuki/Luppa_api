@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
-import { getDate, getDaysInMonth } from 'date-fns';
+import { getHours } from 'date-fns';
 import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
@@ -9,15 +9,16 @@ interface IRequestDTO {
   provider_id: string;
   month: number;
   year: number;
+  day: number;
 }
 
 type IResponse = Array<{
-  day: number;
+  hour: number;
   available: boolean;
 }>;
 
 @injectable()
-export default class ListProviderMonthAvailabilityService {
+export default class ListProviderDayAvailabilityService {
   constructor(
     @inject('AppoitmentsRepository')
     private appoitmentsRepository: IAppointmentsRepository,
@@ -27,32 +28,30 @@ export default class ListProviderMonthAvailabilityService {
     provider_id,
     month,
     year,
+    day,
   }: IRequestDTO): Promise<IResponse> {
-    const appointments = await this.appoitmentsRepository.findByMonthFromProvider(
+    const appointments = await this.appoitmentsRepository.findByDayFromProvider(
       {
         provider_id,
-        year,
         month,
+        year,
+        day,
       },
     );
 
-    const numberOfDaysInMonth = getDaysInMonth(new Date(year, month - 1));
+    const hourStart = 8;
 
-    const daysArray = Array.from(
-      { length: numberOfDaysInMonth },
-      (_, index) => index + 1,
+    const hourArray = Array.from(
+      { length: 10 },
+      (_, index) => index + hourStart,
     );
 
-    const availability = daysArray.map(day => {
-      const appointmentsInDay = appointments.filter(appointment => {
-        // (getDate(appointment.date));
-        return appointment.date.getDate() === day;
-      });
+    const availability = hourArray.map(hour => {
+      const hasAppointmentInHour = appointments.find(
+        appointment => appointment.date.getHours() === hour,
+      );
 
-      return {
-        day,
-        available: appointmentsInDay.length < 10,
-      };
+      return { hour, available: !hasAppointmentInHour };
     });
 
     return availability;
