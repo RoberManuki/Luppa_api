@@ -1,8 +1,6 @@
 import 'reflect-metadata';
+import { getHours, isAfter } from 'date-fns';
 import { inject, injectable } from 'tsyringe';
-import { getHours } from 'date-fns';
-import User from '@modules/users/infra/typeorm/entities/User';
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
 interface IRequestDTO {
@@ -46,12 +44,19 @@ export default class ListProviderDayAvailabilityService {
       (_, index) => index + hourStart,
     );
 
+    const currentDate = new Date(Date.now());
+
     const availability = hourArray.map(hour => {
       const hasAppointmentInHour = appointments.find(
-        appointment => appointment.date.getHours() === hour,
+        appointment => getHours(appointment.date) === hour,
       );
 
-      return { hour, available: !hasAppointmentInHour };
+      const compareDate = new Date(year, month - 1, day, hour);
+
+      return {
+        hour,
+        available: !hasAppointmentInHour && isAfter(compareDate, currentDate),
+      };
     });
 
     return availability;
