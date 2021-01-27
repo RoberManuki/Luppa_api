@@ -1,4 +1,4 @@
-import { startOfHour } from 'date-fns';
+import { getHours, isBefore, startOfHour } from 'date-fns';
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment'; // To study => DDD
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
@@ -30,6 +30,20 @@ class CreateAppointmentService {
 
     if (findAppointmentSameDate) {
       throw new AppError('Duplicated appointment!');
+    }
+
+    if (user_id === provider_id) {
+      throw new AppError('The user can not be the provider!');
+    }
+
+    if (isBefore(appointmentDate, Date.now())) {
+      throw new AppError('You can not create an outdated appointment!');
+    }
+
+    if (getHours(appointmentDate) < 8 || getHours(appointmentDate) > 17) {
+      throw new AppError(
+        'The user can only create an appointment between 8h and 17h!',
+      );
     }
 
     const appointment = await this.appointmentsRepository.create({
