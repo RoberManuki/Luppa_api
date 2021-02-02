@@ -28,12 +28,6 @@ describe('AuthenticateUser', () => {
       password: '123456',
     });
 
-    // const user = await fakeUsersRepository.create({
-    //   name: 'john doe',
-    //   email: 'john@email.com.br',
-    //   password: '123456',
-    // });
-
     const authenticated = await authenticateUser.execute({
       email: 'john@email.com.br',
       password: '123456',

@@ -47,6 +47,10 @@ class AuthenticateUserService {
 
     const { secret, expiresIn } = authConfig.jwt;
 
+    if (!secret) {
+      throw new AppError('The secret are invalid!', 401);
+    }
+
     const token = sign({}, secret, {
       subject: user.id,
       expiresIn,
