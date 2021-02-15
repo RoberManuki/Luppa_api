@@ -41,8 +41,6 @@ export default class ListProviderAppointmentsService {
         day,
       });
 
-      console.log('test');
-
       await this.cacheProvider.save(cacheKey, appointments);
     }
 
