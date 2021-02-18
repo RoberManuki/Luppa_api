@@ -33,7 +33,7 @@ class CreateAppointmentService {
     const appointmentDate = startOfHour(date);
 
     const findAppointmentSameDate = await this.appointmentsRepository.findByDate(
-      appointmentDate,
+      { date: appointmentDate, provider_id },
     );
 
     if (findAppointmentSameDate) {
@@ -66,8 +66,6 @@ class CreateAppointmentService {
       recipient_id: provider_id,
       content: `Novo agendamento para o dia ${dateFormatted}`,
     });
-
-    console.log('test');
 
     await this.cacheProvider.invalidate(
       `provider-appointments:${provider_id}:${format(

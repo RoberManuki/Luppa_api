@@ -8,7 +8,7 @@ interface IRequestDTO {
 }
 
 @injectable()
-export default class ListProviderService {
+export default class ListProvidersService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,

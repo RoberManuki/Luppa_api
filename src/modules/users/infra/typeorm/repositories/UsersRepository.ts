@@ -15,10 +15,10 @@ class UsersRepository implements IUsersRepository {
   public async findAllProviders(data: IFindAllProviders): Promise<User[]> {
     let users: User[];
 
-    if (data) {
+    if (data.except_user_id) {
       users = await this.ormRepository.find({
         where: {
-          id: Not(data),
+          id: Not(data.except_user_id),
         },
       });
     } else {
