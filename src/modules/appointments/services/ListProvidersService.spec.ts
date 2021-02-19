@@ -1,10 +1,10 @@
-import AppError from '@shared/errors/AppError';
+// import AppError from '@shared/errors/AppError';
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
-import ListProviderService from './ListProviderService';
+import ListProvidersService from './ListProvidersService';
 
 let fakeUsersRepository: FakeUsersRepository;
-let listProvider: ListProviderService;
+let listProviders: ListProvidersService;
 let fakeCacheProvider: FakeCacheProvider;
 
 describe('ListProvider', () => {
@@ -12,7 +12,7 @@ describe('ListProvider', () => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeCacheProvider = new FakeCacheProvider();
 
-    listProvider = new ListProviderService(
+    listProviders = new ListProvidersService(
       fakeUsersRepository,
       fakeCacheProvider,
     );
@@ -37,7 +37,7 @@ describe('ListProvider', () => {
       password: '12345678',
     });
 
-    const providers = await listProvider.execute({
+    const providers = await listProviders.execute({
       user_id: loggedUser.id,
     });
 
