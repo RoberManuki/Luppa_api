@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import { classToClass } from 'class-transformer';
 import Appointment from '../infra/typeorm/entities/Appointment';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
@@ -33,6 +34,9 @@ export default class ListProviderAppointmentsService {
       cacheKey,
     );
 
+    // obrigar buscar no banco
+    // let appointments;
+
     if (!appointments) {
       appointments = await this.appointmentsRepository.findByDayFromProvider({
         provider_id,
@@ -43,7 +47,7 @@ export default class ListProviderAppointmentsService {
 
       console.log('buscou no banco');
 
-      await this.cacheProvider.save(cacheKey, appointments);
+      await this.cacheProvider.save(cacheKey, classToClass(appointments));
     }
 
     return appointments;
