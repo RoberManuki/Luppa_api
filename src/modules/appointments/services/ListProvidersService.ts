@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import { classToClass } from 'class-transformer';
 
 interface IRequestDTO {
   user_id: string;
@@ -22,6 +23,8 @@ export default class ListProvidersService {
       `providers-list:${user_id}`,
     );
 
+    // let users; // --> Clear cache
+
     if (!users) {
       users = await this.usersRepository.findAllProviders({
         except_user_id: user_id,
@@ -29,7 +32,10 @@ export default class ListProvidersService {
 
       console.log('Query DB');
 
-      await this.cacheProvider.save(`providers-list:${user_id}`, users);
+      await this.cacheProvider.save(
+        `providers-list:${user_id}`,
+        classToClass(users),
+      );
     }
 
     return users;
