@@ -26,6 +26,16 @@ class AnalysisRepository implements IAnalysisRepository {
 
     return analyze;
   }
+
+  public async findPerDocument(
+    documents: string,
+  ): Promise<Analyze | undefined> {
+    const analyzeDocument = this.ormRepository.findOne({
+      where: { documents },
+    });
+
+    return analyzeDocument;
+  }
 }
 
 export default AnalysisRepository;

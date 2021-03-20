@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
 
-import CreateAanalysisService from '@modules/analysis/services/CreateAnalysisService';
+import CreateAnalysisService from '@modules/analysis/services/CreateAnalysisService';
 import { container } from 'tsyringe';
 
 export default class AnalysisController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { fullName, cpf, documents } = request.body;
 
-    const createAnalysis = container.resolve(CreateAanalysisService);
+    console.log(request.body);
+
+    const createAnalysis = container.resolve(CreateAnalysisService);
 
     const analysis = await createAnalysis.execute({
       fullName,
@@ -15,6 +17,10 @@ export default class AnalysisController {
       documents,
     });
 
-    return response.json(analysis);
+    const analysisReturn = {
+      analysisId: analysis.id,
+    };
+
+    return response.json(analysisReturn);
   }
 }

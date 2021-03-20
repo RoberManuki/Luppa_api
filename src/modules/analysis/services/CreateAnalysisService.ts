@@ -1,19 +1,19 @@
 import Analyze from '@modules/analysis/infra/typeorm/entities/Analyze'; // To study => DDD
 import { injectable, inject } from 'tsyringe';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import ICreateAnalyzeDTO from '@modules/analysis/dtos/ICreateAnalyzeDTO';
+import AppError from '@shared/errors/AppError';
 import IAnalysisRepository from '../repositories/IAnalysisRepository';
-
-interface IRequest {
-  fullName: string;
-  cpf: string;
-  documents: Document[];
-}
+import IDocumentsRepository from '../repositories/IDocumentsRepository';
 
 @injectable()
 class CreateAnalysisService {
   constructor(
     @inject('AnalysisRepository')
     private analysisRepository: IAnalysisRepository,
+
+    @inject('DocumentsRepository')
+    private documentsRepository: IDocumentsRepository,
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
@@ -23,8 +23,17 @@ class CreateAnalysisService {
     fullName,
     cpf,
     documents,
-  }: IRequest): Promise<Analyze> {
-    // alguma regra de negócio
+  }: ICreateAnalyzeDTO): Promise<Analyze> {
+    const findAnalyzeDoc = await this.analysisRepository.findPerDocument(
+      documents,
+    );
+
+    if (findAnalyzeDoc) {
+      throw new AppError('Esse documento já foi analisado!');
+    }
+
+    // map?
+    await this.documentsRepository.create(documents);
 
     const analyze = await this.analysisRepository.create({
       fullName,

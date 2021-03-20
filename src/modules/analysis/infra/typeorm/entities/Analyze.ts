@@ -5,6 +5,8 @@ import {
   Column,
 } from 'typeorm';
 
+// import Document from './Document';
+
 @Entity('analysis')
 class Analyze {
   @PrimaryGeneratedColumn('uuid')
@@ -15,6 +17,10 @@ class Analyze {
 
   @Column()
   cpf: string;
+
+  @Column()
+  documents: string;
+  // documents: Document[];
 
   @CreateDateColumn()
   analyzed_at: Date;

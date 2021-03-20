@@ -11,8 +11,8 @@ class Analyze {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ default: 'error' })
-  status: 'fraud' | 'valid' | 'error';
+  @Column()
+  status: string;
 
   @Column()
   link: string;
@@ -21,6 +21,7 @@ class Analyze {
   @Column()
   analyze_id: string;
 
+  // Muitos documentos para uma análise
   @ManyToOne(() => Analyze)
   @JoinColumn({ name: 'analyze_id' })
   analyze: Analyze;
