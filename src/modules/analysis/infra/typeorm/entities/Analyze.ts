@@ -2,7 +2,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
   Column,
 } from 'typeorm';
 
@@ -12,16 +11,13 @@ class Analyze {
   id: string;
 
   @Column()
-  cpf: string;
+  fullName: string;
 
   @Column()
-  documents: Document[];
+  cpf: string;
 
   @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
+  analyzed_at: Date;
 }
 
 export default Analyze;

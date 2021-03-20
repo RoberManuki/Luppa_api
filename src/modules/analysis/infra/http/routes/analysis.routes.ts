@@ -6,6 +6,6 @@ import AnalysisController from '../controllers/AnalysisController';
 const analysisRouter = Router();
 const analysisController = new AnalysisController();
 
-analysisRouter.post('/', analysisController.create);
+analysisRouter.post('/create', analysisController.create);
 
 export default analysisRouter;
