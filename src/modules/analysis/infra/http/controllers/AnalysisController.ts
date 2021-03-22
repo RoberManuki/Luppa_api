@@ -7,8 +7,6 @@ export default class AnalysisController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { fullName, cpf, documents } = request.body;
 
-    console.log(request.body);
-
     const createAnalysis = container.resolve(CreateAnalysisService);
 
     const analysis = await createAnalysis.execute({

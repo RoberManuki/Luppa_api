@@ -22,10 +22,6 @@ export default class CreateAnalysis1616197079856 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'documents',
-            type: 'varchar',
-          },
-          {
             name: 'analyzed_at',
             type: 'timestamp',
             default: 'now()',

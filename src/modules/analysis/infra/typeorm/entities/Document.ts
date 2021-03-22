@@ -21,7 +21,6 @@ class Analyze {
   @Column()
   analyze_id: string;
 
-  // Muitos documentos para uma análise
   @ManyToOne(() => Analyze)
   @JoinColumn({ name: 'analyze_id' })
   analyze: Analyze;

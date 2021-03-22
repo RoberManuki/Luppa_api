@@ -3,9 +3,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   Column,
+  OneToMany,
 } from 'typeorm';
 
-// import Document from './Document';
+import Document from './Document';
 
 @Entity('analysis')
 class Analyze {
@@ -18,9 +19,8 @@ class Analyze {
   @Column()
   cpf: string;
 
-  @Column()
-  documents: string;
-  // documents: Document[];
+  @OneToMany(() => Document, document => document.analyze)
+  documents: Document[];
 
   @CreateDateColumn()
   analyzed_at: Date;

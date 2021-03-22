@@ -2,7 +2,6 @@ import Analyze from '@modules/analysis/infra/typeorm/entities/Analyze'; // To st
 import { injectable, inject } from 'tsyringe';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import ICreateAnalyzeDTO from '@modules/analysis/dtos/ICreateAnalyzeDTO';
-import AppError from '@shared/errors/AppError';
 import IAnalysisRepository from '../repositories/IAnalysisRepository';
 import IDocumentsRepository from '../repositories/IDocumentsRepository';
 
@@ -25,21 +24,12 @@ class CreateAnalysisService {
     documents,
   }: ICreateAnalyzeDTO): Promise<Analyze> {
     documents.map(async document => {
-      const findAnalyzeDoc = await this.analysisRepository.findPerDocument(
-        document,
-      );
-
-      if (findAnalyzeDoc) {
-        throw new AppError('Esse documento já foi analisado!');
-      }
-
       await this.documentsRepository.create(document);
     });
 
     const analyze = await this.analysisRepository.create({
       fullName,
       cpf,
-      documents,
     });
 
     return analyze;

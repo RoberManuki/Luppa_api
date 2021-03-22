@@ -18,7 +18,7 @@ class DocumentsRepository implements IDocumentsRepository {
     const statusValues = ['error', 'valid', 'fraud'];
 
     const document = this.ormRepository.create({
-      status: statusValues[this.randomInt(0, 2)],
+      status: statusValues[this.randomInt(0, 3)],
       link: documents,
     });
 

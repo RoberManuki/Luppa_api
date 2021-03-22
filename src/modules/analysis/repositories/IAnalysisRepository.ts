@@ -1,7 +1,11 @@
 import Analyze from '../infra/typeorm/entities/Analyze';
-import ICreateAnalyzeDTO from '../dtos/ICreateAnalyzeDTO';
+
+interface IRequest {
+  fullName: string;
+  cpf: string;
+}
 
 export default interface IAnalysisRepository {
-  create(data: ICreateAnalyzeDTO): Promise<Analyze>;
+  create(data: IRequest): Promise<Analyze>;
   findPerDocument(document: string): Promise<Analyze | undefined>;
 }
