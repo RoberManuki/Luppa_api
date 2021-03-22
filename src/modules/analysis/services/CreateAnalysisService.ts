@@ -24,16 +24,17 @@ class CreateAnalysisService {
     cpf,
     documents,
   }: ICreateAnalyzeDTO): Promise<Analyze> {
-    const findAnalyzeDoc = await this.analysisRepository.findPerDocument(
-      documents,
-    );
+    documents.map(async document => {
+      const findAnalyzeDoc = await this.analysisRepository.findPerDocument(
+        document,
+      );
 
-    if (findAnalyzeDoc) {
-      throw new AppError('Esse documento já foi analisado!');
-    }
+      if (findAnalyzeDoc) {
+        throw new AppError('Esse documento já foi analisado!');
+      }
 
-    // map?
-    await this.documentsRepository.create(documents);
+      await this.documentsRepository.create(document);
+    });
 
     const analyze = await this.analysisRepository.create({
       fullName,
