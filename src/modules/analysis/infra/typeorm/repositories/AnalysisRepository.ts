@@ -26,6 +26,14 @@ class AnalysisRepository implements IAnalysisRepository {
 
     return analyze;
   }
+
+  // Ao tentar fazer essa função ser async, me deparei com erros de tipagem que 'quebraram' outros arquivos
+  public validateDoc(): string {
+    // 'status' sendo gerado de forma aleatória
+    const statusValues = ['valid', 'fraud', 'error'];
+
+    return statusValues[Math.floor(Math.random() * statusValues.length)];
+  }
 }
 
 export default AnalysisRepository;
