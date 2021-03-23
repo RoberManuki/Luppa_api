@@ -24,12 +24,19 @@ class CreateAnalysisService {
   ) {}
 
   public async execute({ fullName, cpf, links }: IRequest): Promise<Analyze> {
+    const min = 0;
+    const max = 3;
+
+    // 'status' sendo gerado de forma aleatória
+    const statusValues = ['valid', 'fraud', 'error'];
+
     const analyze = await this.analysisRepository.create({
       fullName,
       cpf,
+      // Não precisamos instanciar o repositório de Document devido ao 'cascade: true' no relacionamento
       documents: links.map(link => ({
         link,
-        status: 'valid',
+        status: statusValues[min + Math.floor((max - min) * Math.random())],
       })),
     });
 

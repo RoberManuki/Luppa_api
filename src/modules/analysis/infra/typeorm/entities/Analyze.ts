@@ -19,6 +19,8 @@ class Analyze {
   @Column()
   cpf: string;
 
+  // Análise 1:N Documentos
+  // Cascade cria as instâncias de 'Document' sem a necessidade de um repositório
   @OneToMany(() => Document, document => document.analyze, { cascade: true })
   documents: Document[];
 
