@@ -1,9 +1,14 @@
 import Analyze from '@modules/analysis/infra/typeorm/entities/Analyze'; // To study => DDD
 import { injectable, inject } from 'tsyringe';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
-import ICreateAnalyzeDTO from '@modules/analysis/dtos/ICreateAnalyzeDTO';
 import IAnalysisRepository from '../repositories/IAnalysisRepository';
 import IDocumentsRepository from '../repositories/IDocumentsRepository';
+
+interface IRequest {
+  fullName: string;
+  cpf: string;
+  links: string[];
+}
 
 @injectable()
 class CreateAnalysisService {
@@ -18,18 +23,14 @@ class CreateAnalysisService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({
-    fullName,
-    cpf,
-    documents,
-  }: ICreateAnalyzeDTO): Promise<Analyze> {
-    documents.map(async document => {
-      await this.documentsRepository.create(document);
-    });
-
+  public async execute({ fullName, cpf, links }: IRequest): Promise<Analyze> {
     const analyze = await this.analysisRepository.create({
       fullName,
       cpf,
+      documents: links.map(link => ({
+        link,
+        status: 'valid',
+      })),
     });
 
     return analyze;

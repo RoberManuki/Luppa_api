@@ -6,8 +6,10 @@ import {
   JoinColumn,
 } from 'typeorm';
 
+import Analyze from './Analyze';
+
 @Entity('documents')
-class Analyze {
+class Document {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -27,4 +29,4 @@ class Analyze {
   //--------------------
 }
 
-export default Analyze;
+export default Document;

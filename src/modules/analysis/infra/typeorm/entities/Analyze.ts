@@ -19,7 +19,7 @@ class Analyze {
   @Column()
   cpf: string;
 
-  @OneToMany(() => Document, document => document.analyze)
+  @OneToMany(() => Document, document => document.analyze, { cascade: true })
   documents: Document[];
 
   @CreateDateColumn()

@@ -12,7 +12,7 @@ export default class AnalysisController {
     const analysis = await createAnalysis.execute({
       fullName,
       cpf,
-      documents,
+      links: documents,
     });
 
     const analysisReturn = {
