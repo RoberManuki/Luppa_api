@@ -20,15 +20,6 @@ export default class ListAnalysisService {
   ) {}
 
   public async execute(): Promise<IAnalyzeResponseDTO[]> {
-    // let analysis = await this.cacheProvider.recover<Analyze[]>(
-    //   `analysis-list:${analyze_id}`,
-    // );
-
-    // await this.cacheProvider.save(
-    //   `analysis-list:${analyze_id}`,
-    //   classToClass(analysis),
-    // );
-
     const analysis = await this.analysisRepository.findAllAnalysis();
 
     if (!analysis) {
