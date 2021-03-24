@@ -1,7 +1,7 @@
 # Luppa_api
 Desafio backend --> Análise de documentos
 
-<h4 align="center"> 
+<h4 align="center">
   🚧  Cache + Testes + Build --> Em construção...  🚧
 </h4>
 
@@ -19,7 +19,7 @@ Desafio backend --> Análise de documentos
 ### Pré-requisitos
 
 Para executar a aplicação, precisaremos instalar as seguintes ferramentas:
-[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/) e [Yarn](https://yarnpkg.com/). 
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/) e [Yarn](https://yarnpkg.com/).
 
 O projeto foi desenvolvido no sistema operacional [Linux Mint 20.0](https://linuxmint.com/) com o editor [VSCode](https://code.visualstudio.com/).
 
@@ -27,41 +27,41 @@ O projeto foi desenvolvido no sistema operacional [Linux Mint 20.0](https://linu
 ### 🎲 Rodando a api (servidor)
 
 ```bash
-# Crie o container para o banco de dados Postgres
-$ docker run --name luppa_api -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres  
+# Crie o container para o banco de dados Postgres:
+$ docker run --name luppa_api -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
 
-# Crie o container para o cache Redis
+# Crie o container para o cache Redis:
 $ docker run --name luppa_cache -p 6379:6379 -d -t redis:alpine
 
-# Clone este repositório
+# Clone este repositório:
 $ git clone <https://github.com/RoberManuki/Luppa_api.git>
 
-# Acesse a pasta do projeto no terminal/cmd
+# Acesse a pasta do projeto no terminal/cmd:
 $ cd Luppa_api
 
-# Dentro da pasta raiz, instale as dependências
+# Dentro da pasta raiz, instale as dependências:
 $ yarn
 
-# Execute o servidor
+# Execute o servidor:
 $ yarn dev:server
 
 # O servidor inciará na porta:3333 - acesse <http://localhost:3333> para fazer as requisições.
 ```
 
-### :star: Exemplos de requisições 
+### :star: Exemplos de requisições
 
 ```bash
 # Crar análise
 POST --> https://localhost:3333/analysis/
-Body --> JSON 
-    { 
-      "fullName": "Robson da Silva Oliveira", 
-      "cpf": "13223653694", 	
+Body --> JSON
+    {
+      "fullName": "Robson da Silva Oliveira",
+      "cpf": "13223653694",
       "documents": [
 		"https://document.com/example/Luppa_1",
 		"https://document.com/example/Luppa_2",
 		"https://document.com/example/Luppa_3"
-       ] 
+       ]
     }
 
 # Listar todas análises
@@ -70,10 +70,10 @@ No Body
 
 # Listar uma análise
 GET --> https://localhost:3333/analysis/list
-Body --> JSON 
-    { 
-      "analyze_id": "id retornado na criação", 
-    }    
+Body --> JSON
+    {
+      "analyze_id": "id retornado na criação",
+    }
 ```
 
 
@@ -106,7 +106,7 @@ Este projeto foi baseado no GoBarber_api, que é usado pela RocketSeat para ensi
 
 ### Conclusão e Principais Dificuldades encontradas
 
-Em modo geral, o desafio foi MUITO proveitoso. 
+Em modo geral, o desafio foi MUITO proveitoso.
 
 Foi a primeira vez que participei de um exercício nesse formato, e ele realmente colocou meus conhecimentos à prova.
 
