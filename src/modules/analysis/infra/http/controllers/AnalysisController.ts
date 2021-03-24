@@ -15,7 +15,7 @@ export default class AnalysisController {
   }
 
   public async find(request: Request, response: Response): Promise<Response> {
-    const { analyze_id } = request.params;
+    const { analyze_id } = request.body;
 
     const findAnalyze = container.resolve(FindAnalyzeService);
 

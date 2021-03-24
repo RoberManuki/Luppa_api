@@ -41,20 +41,24 @@ export default class FindAnalyzeService {
       throw new AppError('Documentos não foram encontrados.');
     }
 
-    const response = analysis.map(analyze => {
-      if (analyze.id === analyze_id) {
-        return {
-          analysisId: analyze.id,
-          fullName: analyze.fullName,
-          cpf: analyze.cpf,
-          analyzedAt: analyze.analyzed_at,
-          documents: documents.filter(
-            document => analyze.id === document.analyze_id,
-          ),
-        };
-      }
-    });
+    const analyzeSelected = analysis.find(analyze => analyze.id === analyze_id);
 
-    return (response as unknown) as IAnalyzeResponseDTO;
+    console.log(analyzeSelected);
+
+    if (!analyzeSelected) {
+      throw new AppError('Análise com esse ID não foi encontrada.');
+    }
+
+    const response = {
+      analysisId: analyzeSelected.id,
+      fullName: analyzeSelected.fullName,
+      cpf: analyzeSelected.cpf,
+      analyzedAt: analyzeSelected.analyzed_at,
+      documents: documents.filter(
+        document => analyzeSelected.id === document.analyze_id,
+      ),
+    };
+
+    return response as IAnalyzeResponseDTO;
   }
 }
