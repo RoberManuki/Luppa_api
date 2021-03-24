@@ -1,7 +1,8 @@
 /* eslint-disable no-return-await */
 import { inject, injectable } from 'tsyringe';
-import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import AppError from '@shared/errors/AppError';
+
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IAnalysisRepository from '../repositories/IAnalysisRepository';
 import IDocumentsRepository from '../repositories/IDocumentsRepository';
 import IAnalyzeResponseDTO from '../dtos/IAnalyzeResponseDTO';
@@ -42,8 +43,6 @@ export default class FindAnalyzeService {
     }
 
     const analyzeSelected = analysis.find(analyze => analyze.id === analyze_id);
-
-    console.log(analyzeSelected);
 
     if (!analyzeSelected) {
       throw new AppError('Análise com esse ID não foi encontrada.');

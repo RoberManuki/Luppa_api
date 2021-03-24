@@ -1,8 +1,8 @@
-import Analyze from '@modules/analysis/infra/typeorm/entities/Analyze'; // To study => DDD
+import Analyze from '@modules/analysis/infra/typeorm/entities/Analyze';
 import { injectable, inject } from 'tsyringe';
+
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IAnalysisRepository from '../repositories/IAnalysisRepository';
-import IDocumentsRepository from '../repositories/IDocumentsRepository';
 
 interface IRequest {
   fullName: string;
@@ -15,9 +15,6 @@ class CreateAnalysisService {
   constructor(
     @inject('AnalysisRepository')
     private analysisRepository: IAnalysisRepository,
-
-    @inject('DocumentsRepository')
-    private documentsRepository: IDocumentsRepository,
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,

@@ -1,6 +1,7 @@
 import { container } from 'tsyringe';
-import ICacheProvider from './models/ICacheProvider';
 import RedisCacheProvider from './implementations/RedisCacheProvider';
+
+import ICacheProvider from './models/ICacheProvider';
 
 const providers = {
   redis: RedisCacheProvider,
