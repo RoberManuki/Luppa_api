@@ -37,7 +37,7 @@ $ docker run --name luppa_cache -p 6379:6379 -d -t redis:alpine
 $ git clone <https://github.com/RoberManuki/Luppa_api.git>
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd api
+$ cd Luppa_api
 
 # Dentro da pasta raiz, instale as dependências
 $ yarn
