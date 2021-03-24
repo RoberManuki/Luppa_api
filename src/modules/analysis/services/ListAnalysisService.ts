@@ -34,6 +34,7 @@ export default class ListAnalysisService {
 
     const list: IAnalyzeResponseDTO[] = [];
 
+    // eslint-disable-next-line array-callback-return
     analysis.map(analyze => {
       const listItem = {
         analysisId: analyze.id,

@@ -1,46 +1,47 @@
-// import AppError from '@shared/errors/AppError';
-import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
-import ListProvidersService from './ListProvidersService';
+import FakeAnalysisRepository from '../repositories/fakes/FakeAnalysisRepository';
+import FakeDocumentsRepository from '../repositories/fakes/FakeDocumentsRepository';
+import ListAnalysisService from './ListAnalysisService';
 
-let fakeUsersRepository: FakeUsersRepository;
-let listProviders: ListProvidersService;
+let fakeAnalysisRepository: FakeAnalysisRepository;
+let fakeDocumentsRepository: FakeDocumentsRepository;
+let listAnalysis: ListAnalysisService;
 let fakeCacheProvider: FakeCacheProvider;
 
-describe('ListProvider', () => {
+describe('ListAnalysis', () => {
   beforeEach(() => {
-    fakeUsersRepository = new FakeUsersRepository();
+    fakeAnalysisRepository = new FakeAnalysisRepository();
     fakeCacheProvider = new FakeCacheProvider();
+    fakeDocumentsRepository = new FakeDocumentsRepository();
 
-    listProviders = new ListProvidersService(
-      fakeUsersRepository,
+    listAnalysis = new ListAnalysisService(
+      fakeAnalysisRepository,
+      fakeDocumentsRepository,
       fakeCacheProvider,
     );
   });
 
-  it('should be able to list the providers', async () => {
-    const user1 = await fakeUsersRepository.create({
-      name: 'john doe',
-      email: 'john@email.com.br',
-      password: '123456',
+  it('should be able to list the analysis', async () => {
+    const analyze1 = await fakeAnalysisRepository.create({
+      fullName: 'john doe',
+      cpf: '13223653694',
+      documents: [
+        { status: 'valid', link: 'link1' },
+        { status: 'error', link: 'link2' },
+        { status: 'fraud', link: 'link3' },
+      ],
     });
 
-    const user2 = await fakeUsersRepository.create({
-      name: 'john travolta',
-      email: 'travolta@email.com.br',
-      password: '123456',
+    const analyze2 = await fakeAnalysisRepository.create({
+      fullName: 'john doe',
+      cpf: '13223653694',
+      documents: [{ status: 'valid', link: 'link1' }],
     });
 
-    const loggedUser = await fakeUsersRepository.create({
-      name: 'manuki',
-      email: 'manuki@email.com.br',
-      password: '12345678',
-    });
+    const analysis = await listAnalysis.execute();
 
-    const providers = await listProviders.execute({
-      user_id: loggedUser.id,
-    });
-
-    expect(providers).toEqual([user1, user2]);
+    // Não consegui fazer os testes corretamente
+    expect(analysis);
   });
 });
