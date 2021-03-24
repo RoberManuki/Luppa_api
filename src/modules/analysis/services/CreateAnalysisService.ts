@@ -2,6 +2,7 @@ import Analyze from '@modules/analysis/infra/typeorm/entities/Analyze';
 import { injectable, inject } from 'tsyringe';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import AppError from '@shared/errors/AppError';
 import IAnalysisRepository from '../repositories/IAnalysisRepository';
 
 interface IRequest {
@@ -30,6 +31,10 @@ class CreateAnalysisService {
         status: this.analysisRepository.validateDoc(),
       })),
     });
+
+    if (!analyze) {
+      throw new AppError('Erro na criação da análise!');
+    }
 
     return analyze;
   }
