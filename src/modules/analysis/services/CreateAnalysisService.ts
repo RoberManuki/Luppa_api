@@ -28,10 +28,8 @@ class CreateAnalysisService {
       fullName,
       cpf,
       // 'cascade: true' no relacionamento --> Não precisamos de repositório para Documents
-      // ----------------- async?
       documents: links.map(link => ({
         link,
-        // ---- await?
         status: this.analysisRepository.validateDoc(),
       })),
     });

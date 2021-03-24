@@ -10,21 +10,10 @@ class DocumentsRepository implements IDocumentsRepository {
     this.ormRepository = getRepository(Document);
   }
 
-  private randomInt(min: number, max: number) {
-    return min + Math.floor((max - min) * Math.random());
-  }
+  public async findAllDocuments(): Promise<Document[]> {
+    const documents = await this.ormRepository.find();
 
-  public async create(documents: string): Promise<Document> {
-    const statusValues = ['error', 'valid', 'fraud'];
-
-    const document = this.ormRepository.create({
-      status: statusValues[this.randomInt(0, 3)],
-      link: documents,
-    });
-
-    await this.ormRepository.save(document);
-
-    return document;
+    return documents;
   }
 }
 

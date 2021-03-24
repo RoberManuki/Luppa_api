@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
 import Analyze from '@modules/analysis/infra/typeorm/entities/Analyze';
+
 import IAnalysisRepository from '@modules/analysis/repositories/IAnalysisRepository';
 import ICreateAnalyzeDTO from '@modules/analysis/dtos/ICreateAnalyzeDTO';
 
@@ -25,6 +26,12 @@ class AnalysisRepository implements IAnalysisRepository {
     await this.ormRepository.save(analyze);
 
     return analyze;
+  }
+
+  public async findAllAnalysis(): Promise<Analyze[] | undefined> {
+    const analysis = await this.ormRepository.find();
+
+    return analysis;
   }
 
   // Ao tentar fazer essa função ser async, me deparei com erros de tipagem que 'quebraram' outros arquivos
