@@ -115,8 +115,8 @@ Ou seja, além de ser útil para me avaliarem, ele também serviu para minha aut
 Tecnicamente, tive dificuldade em:
 
 - Resgatar os dados do cache, quando em Array;
-- Criação e configuração do relacionamentos;
-- Montar corretamente a estrutura dos testes automatizados
+- Criação e configuração dos relacionamentos;
+- Montar corretamente a estrutura dos testes automatizados.
 
 Enfim, agradeço a oportunidade de participar desse desafio!
 Procuro uma organização que possibilite um desenvolvedor iniciante a tornar-se um grande desenvolvedor, podem me ajudar!?!?
