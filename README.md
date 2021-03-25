@@ -69,7 +69,7 @@ GET --> https://localhost:3333/analysis/list
 No Body
 
 # Listar uma análise
-GET --> https://localhost:3333/analysis/list
+GET --> https://localhost:3333/analysis/
 Body --> JSON
     {
       "analyze_id": "id retornado na criação",
