@@ -19,7 +19,7 @@ Desafio backend --> Análise de documentos
 ### Pré-requisitos
 
 Para executar a aplicação, precisaremos instalar as seguintes ferramentas:
-[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/) e [Yarn](https://yarnpkg.com/).
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/) e [Docker](https://www.docker.com/).
 
 O projeto foi desenvolvido no sistema operacional [Linux Mint 20.0](https://linuxmint.com/) com o editor [VSCode](https://code.visualstudio.com/).
 
